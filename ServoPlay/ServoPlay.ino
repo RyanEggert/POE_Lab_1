@@ -15,5 +15,8 @@ void loop()
 { 
   pos=0;
 myservo.write(pos);
+delay(1000);
+pos=90;
+myservo.write(pos);
 
 } 
