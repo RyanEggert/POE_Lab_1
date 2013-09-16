@@ -19,7 +19,7 @@ void loop()
 	//Pan.writeMicroseconds(1000);
 
 //Where we could put pushbutton scan start
-	for(int PanPosition=0; PanPosition<180; PanPosition+=10)
+	for(int PanPosition=10; PanPosition<170; PanPosition+=10)
 	{
 		Pan.write(PanPosition);
 		Tilt.write(PanPosition);
