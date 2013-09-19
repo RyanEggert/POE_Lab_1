@@ -21,68 +21,55 @@ Servo Tilt;
 
 void setup()
 {
-	analogReference(EXTERNAL);
-	pinMode(ButtonPin,INPUT);
-	Pan.attach(9);			//Attaches Pan servo to pin 9
-	Tilt.attach(10);		//Attaches Tilt servo to pin 11
-	Serial.begin(9600);
-	Serial.print("A=[");	//Preparing the data to be written to the serial monitor in a format readable by MATLAB as a matrix, A.
+  analogReference(EXTERNAL);
+  pinMode(ButtonPin,INPUT);
+  Pan.attach(9);			//Attaches Pan servo to pin 9
+  Tilt.attach(10);		//Attaches Tilt servo to pin 11
+  Serial.begin(9600);
+  Serial.print("A=[");	//Preparing the data to be written to the serial monitor in a format readable by MATLAB as a matrix, A.
 }
 
 void loop() 
 {
-	ButtonState=digitalRead(ButtonPin);
+  for(int PanAngle=50; PanAngle<140; PanAngle+=5)
+  {
+    Pan.write(PanAngle);
 
-	if (ButtonState=HIGH)
-	{
-		while (ButtonState=HIGH)
-		{
-			ButtonState=digitalRead(ButtonPin);
-		}
-		RunOnce++;
-	}
-	
-	if (RunOnce==1)
-	{
-		for(int PanAngle=10; PanAngle<170; PanAngle+=10)
-		{
-			Pan.write(PanAngle);
-	
-			for(int TiltAngle=10; TiltAngle<170; TiltAngle+=10)
-			{
-					Tilt.write(TiltAngle);										//Tilt the sensor
-					delay(500);													//Give the servo time to reach its position
-					//Collect Data
-					Distance1=analogRead(SensorPin);
-					delay(20);													//Stop between readings
-					Distance2=analogRead(SensorPin);
-					delay(20);													//Stop between readings
-					Distance3=analogRead(SensorPin);
-					delay(20);													//Stop between readings
-					Distance4=analogRead(SensorPin);
-					delay(20);													//Stop between readings
-					Distance5=analogRead(SensorPin);
-	
-					//Average the distance readings
-					TenXDistance=((Distance1 + Distance2 + Distance3 + Distance4 + Distance5)*10)/5;  //Distances multiplied by 10 to keep values integers. Will be divided out in MATLAB. This works because x/5, where x is an integer, will have a maximum of one decimal point.
-					
-					//Calculated outputted tilt angle
-	
-						//Wait for finished mount
-	
-					//Print formatted data to serial monitor.
-					Serial.print(PanAngle);				// The data will be exported to matlab as a matrix, A.
-					Serial.print(",");					// The matrix will have the following form
-					Serial.print(TiltAngleOut);			//		PanAngle1	TiltAngle1	Distance1*10
-					Serial.print(",");					//		PanAngle2	TiltAngle2	Distance2*10
-					Serial.print(TenXDistance);			//			...			...			...
-					Serial.println(";");				// These should correspond to spherical coordinates (theta, phi, r) 
-				}
-				
-	
-			}
-			Serial.print("]");
-			RunOnce++;
-		}
-	}
+    for(int TiltAngle=70; TiltAngle<140; TiltAngle+=5)
+    {
+      Tilt.write(TiltAngle);										//Tilt the sensor
+      delay(500);													//Give the servo time to reach its position
+      //Collect Data
+      Distance1=analogRead(SensorPin);
+      delay(20);													//Stop between readings
+      Distance2=analogRead(SensorPin);
+      delay(20);													//Stop between readings
+      Distance3=analogRead(SensorPin);
+      delay(20);													//Stop between readings
+      Distance4=analogRead(SensorPin);
+      delay(20);													//Stop between readings
+      Distance5=analogRead(SensorPin);
+
+      //Average the distance readings
+      TenXDistance=((Distance1 + Distance2 + Distance3 + Distance4 + Distance5)*10)/5;  //Distances multiplied by 10 to keep values integers. Will be divided out in MATLAB. This works because x/5, where x is an integer, will have a maximum of one decimal point.
+
+      //Calculated outputted tilt angle
+
+      //Wait for finished mount
+
+      //Print formatted data to serial monitor.
+      Serial.print(PanAngle);				// The data will be exported to matlab as a matrix, A.
+      Serial.print(",");					// The matrix will have the following form
+      Serial.print(TiltAngleOut);			//		PanAngle1	TiltAngle1	Distance1*10
+      Serial.print(",");					//		PanAngle2	TiltAngle2	Distance2*10
+      Serial.print(TenXDistance);			//			...			...			...
+      Serial.println(";");				// These should correspond to spherical coordinates (theta, phi, r) 
+    }
+
+
+  }
+  Serial.print("]");
+  RunOnce++;
+}
+
 
