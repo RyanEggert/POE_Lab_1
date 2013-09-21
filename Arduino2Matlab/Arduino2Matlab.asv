@@ -46,7 +46,7 @@ clf
 
 hold all
 B=[x',y',z'];
-plot3k(B,'ColorRange',[20 100],'ColorData',y);
+plot3k(B,'ColorRange',[20 10],'ColorData',y);
 axis([-60 60 0 110 -20 25]);
 xlabel('X-Axis')
 ylabel('Y-Axis')
