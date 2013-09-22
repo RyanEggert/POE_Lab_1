@@ -12,8 +12,6 @@ int Distance4=0;
 int Distance5=0;
 int TenXDistance=0;			//Final Distance (has been averaged and multiplied by 10)
 int SensorPin=A0;			//Pin the distance sensor is plugged in to. MUST BE ANALOG INPUT
-int ButtonPin=13;			//Digital pin which the push button is plugged in to.
-int ButtonState=0;			//State (HIGH/LOW) of the push button
 int RunOnce=0;				//Will be used to make the for loops only run once
 Servo Pan;
 Servo Tilt;
@@ -22,7 +20,6 @@ Servo Tilt;
 void setup()
 {
   analogReference(EXTERNAL);
-  pinMode(ButtonPin,INPUT);
   Pan.attach(9);			//Attaches Pan servo to pin 9
   Tilt.attach(10);		//Attaches Tilt servo to pin 11
   Serial.begin(9600);
@@ -33,11 +30,11 @@ void loop()
 {
   if (RunOnce ==0){
     
-  for(int PanAngle=40; PanAngle<160; PanAngle+=1)
+  for(int PanAngle=30; PanAngle<155; PanAngle+=1)
   {
     Pan.write(PanAngle);
 
-    for(int TiltAngle=65; TiltAngle<120; TiltAngle+=1)
+    for(int TiltAngle=70; TiltAngle<115; TiltAngle+=1)
     {
       Tilt.write(TiltAngle);										//Tilt the sensor
       delay(100);													//Give the servo time to reach its position
