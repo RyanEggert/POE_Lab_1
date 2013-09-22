@@ -15,8 +15,8 @@ void setup()
 
 void loop() 
 {
-  Pan.write(40);
-Tilt.write(90);
+  Pan.write(90);
+Tilt.write(110);
 
 
 }
