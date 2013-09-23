@@ -1,20 +1,15 @@
 %%Arduino to MATLAB
-
-
+%   Imports formatted data copied to the command window from the Arduino
+%   serial monitor
 
 %%Import Data
-      theta = A(:,1);
-        phi = A(:,2);
-  rtimesten = A(:,3);
+      theta = A(:,1);   %Angles are named and defined using mathematics
+        phi = A(:,2);   %conventions for spherical coordinates.
+  rtimesten = A(:,3);   %http://mathworld.wolfram.com/images/eps-gif/SphericalCoordinates_1201.gif
   
   ASize=size(A); %Size of imported matrix
   NumberOfPoints=ASize(1); %The number of data points
-  
-% %%Variable Preallocation
-% x=zeros(NumberOfPoints);
-% y=zeros(NumberOfPoints);
-% z=zeros(NumberOfPoints);
-  
+    
 %%Divide rtimesten by ten to get the actual r-value (averaged by arduino)
 r2=rtimesten./10;
 
@@ -46,7 +41,7 @@ clf
 
 hold all
 B=[x',y',z'];
-plot3k(B,'ColorRange',[20 100],'ColorData',y);
+plot3k(B,'ColorRange',[20 100],'ColorData',y,'PlotProps',{'MarkerSize',10});
 axis([-60 60 0 110 -20 25]);
 xlabel('X-Axis')
 ylabel('Y-Axis')
