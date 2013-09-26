@@ -21,28 +21,31 @@ end
 %%Spherical to Cartesian Conversion
 
 for i=1:NumberOfPoints
-    x(i)=r(i)*cosd(theta(i))*sind(phi(i));
+    x(i)=r(i)*cosd(theta(i))*sind(phi(i));  %Standard spherical to cartesian conversions
     y(i)=r(i)*sind(theta(i))*sind(phi(i));
     z(i)=r(i)*cosd(phi(i));
 end
 
 %%Plot
+figure(1)  %Non-colored scatterplot
 clf
 hold all
 scatter3(x,y,z,'k.');
 xlabel('X-Axis');
 ylabel('Y-Axis');
 zlabel('Z-Axis');
-axis([-60 60 -60 60 -10 60]);
+axis([-60 60 -10 10 -10 40]);
 grid on
 
-figure (2)
+figure (2)  %Colored scatterplot
 clf
 
 hold all
 B=[x',y',z'];
-plot3k(B,'ColorRange',[20 100],'ColorData',y,'PlotProps',{'MarkerSize',10});
-axis([-60 60 0 110 -20 25]);
+plot3k(B,'ColorRange',[20 30],'ColorData',y); %plot3k() has been modified to change point size and to color based on y-values 
+axis([-15 15 15 40 -10 10]);
+axis square
+axis vis3d
 xlabel('X-Axis')
 ylabel('Y-Axis')
 zlabel('Z-Axis')
